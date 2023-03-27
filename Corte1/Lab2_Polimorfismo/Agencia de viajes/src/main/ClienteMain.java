@@ -1,9 +1,9 @@
-package principal;
-import mundo.Viaje;
-import mundo.ViajeFamiliar;
-import mundo.ViajeIncentivo;
-import mundo.ViajeIndividual;
-import mundo.ViajeTodoIncluido;
+package main;
+import modelo.Viaje;
+import modelo.ViajeFamiliar;
+import modelo.ViajeIncentivo;
+import modelo.ViajeIndividual;
+import modelo.ViajeTodoIncluido;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
