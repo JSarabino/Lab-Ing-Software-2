@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="flyweight">
+  <ClassDiagramComponents>
+    <Class name="Client" package="flyweight" visibility="public" xPosition="986.0" yPosition="64.0">
+      <Fields>
+        <Field name="colors" type="String[]" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="CANVAS_SIZE" type="int" visibility="private" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="getRandomColor" returnType="String" visibility="private" isStatic="true"/>
+        <Method name="getRandomX" returnType="int" visibility="private" isStatic="true"/>
+        <Method name="getRandomY" returnType="int" visibility="private" isStatic="true"/>
+        <Method name="getRandomWidth" returnType="int" visibility="private" isStatic="true"/>
+        <Method name="getRandomHeight" returnType="int" visibility="private" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="Rectangle" package="flyweight" visibility="public" xPosition="303.0" yPosition="480.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="draw" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="width"/>
+          <Argument type="int" name="height"/>
+          <Argument type="Color" name="color"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ShapeFactory" package="flyweight" visibility="public" xPosition="384.0" yPosition="178.0">
+      <Fields>
+        <Field name="shapes" type="Map&lt;String, Shape&gt;" visibility="private" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getShape" returnType="Shape" visibility="public" isStatic="true">
+          <Argument type="String" name="key"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="Shape" package="flyweight" visibility="public" xPosition="898.0" yPosition="360.0">
+      <Methods>
+        <Method name="draw" returnType="void" visibility="package">
+          <Argument type="Graphics" name="g"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="width"/>
+          <Argument type="int" name="height"/>
+          <Argument type="Color" name="color"/>
+        </Method>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="shapes" source="flyweight.ShapeFactory" target="flyweight.Shape" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;String, Shape&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="flyweight.Rectangle" target="flyweight.Shape"/>
+    <UseRelation source="flyweight.ShapeFactory" target="flyweight.Shape" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

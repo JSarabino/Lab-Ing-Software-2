@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="adapter">
+  <ClassDiagramComponents>
+    <Class name="Client" package="adapter" visibility="public" xPosition="460.0" yPosition="81.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="FahrenheitTemperature" package="adapter" visibility="public" xPosition="144.0" yPosition="292.0">
+      <Fields>
+        <Field name="temperature" type="double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="double" name="temperature"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getTemperature" returnType="double" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="FahrenheitToCelsiusAdapter" package="adapter" visibility="public" xPosition="656.0" yPosition="292.0">
+      <Fields>
+        <Field name="fahrenheitTemperature" type="FahrenheitTemperature" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="FahrenheitTemperature" name="fahrenheitTemperature"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getCelsiusTemperature" returnType="double" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="CelsiusTemperature" package="adapter" visibility="public" xPosition="778.0" yPosition="87.0">
+      <Methods>
+        <Method name="getCelsiusTemperature" returnType="double" visibility="package"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="fahrenheitTemperature" source="adapter.FahrenheitToCelsiusAdapter" target="adapter.FahrenheitTemperature" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="adapter.FahrenheitToCelsiusAdapter" target="adapter.CelsiusTemperature"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

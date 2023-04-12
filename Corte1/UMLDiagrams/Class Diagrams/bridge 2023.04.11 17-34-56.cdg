@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="bridge">
+  <ClassDiagramComponents>
+    <Class name="Circle" package="bridge" visibility="public" xPosition="208.0" yPosition="490.0">
+      <Fields>
+        <Field name="x" type="double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="double" name="x"/>
+          <Argument type="double" name="y"/>
+          <Argument type="double" name="radius"/>
+          <Argument type="DrawingAPI" name="drawingAPI"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="draw" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Client" package="bridge" visibility="public" xPosition="313.0" yPosition="44.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DrawingAPI1" package="bridge" visibility="public" xPosition="673.0" yPosition="490.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="drawCircle" returnType="void" visibility="public">
+          <Argument type="double" name="x"/>
+          <Argument type="double" name="y"/>
+          <Argument type="double" name="radius"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DrawingAPI2" package="bridge" visibility="public" xPosition="1009.0" yPosition="490.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="drawCircle" returnType="void" visibility="public">
+          <Argument type="double" name="x"/>
+          <Argument type="double" name="y"/>
+          <Argument type="double" name="radius"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Shape" package="bridge" visibility="public" isAbstract="true" xPosition="299.0" yPosition="252.0">
+      <Fields>
+        <Field name="drawingAPI" type="DrawingAPI" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="protected">
+          <Argument type="DrawingAPI" name="drawingAPI"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="draw" returnType="void" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Class>
+    <Interface name="DrawingAPI" package="bridge" visibility="public" xPosition="835.0" yPosition="285.0">
+      <Methods>
+        <Method name="drawCircle" returnType="void" visibility="package">
+          <Argument type="double" name="x"/>
+          <Argument type="double" name="y"/>
+          <Argument type="double" name="radius"/>
+        </Method>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="bridge.Circle" target="bridge.Shape"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="bridge.DrawingAPI1" target="bridge.DrawingAPI"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="bridge.DrawingAPI2" target="bridge.DrawingAPI"/>
+    <HasRelation name="drawingAPI" source="bridge.Shape" target="bridge.DrawingAPI" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

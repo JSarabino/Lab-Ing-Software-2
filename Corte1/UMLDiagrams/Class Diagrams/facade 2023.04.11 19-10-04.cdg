@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="facade">
+  <ClassDiagramComponents>
+    <Class name="Client" package="facade" visibility="public" xPosition="185.0" yPosition="97.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Computer" package="facade" visibility="public" xPosition="518.0" yPosition="39.0">
+      <Fields>
+        <Field name="cpu" type="CPU" visibility="private"/>
+        <Field name="memory" type="Memory" visibility="private"/>
+        <Field name="hardDrive" type="HardDrive" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="startComputer" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="CPU" package="facade" visibility="public" xPosition="198.0" yPosition="429.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="freeze" returnType="void" visibility="public"/>
+        <Method name="jump" returnType="void" visibility="public">
+          <Argument type="long" name="position"/>
+        </Method>
+        <Method name="execute" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="HardDrive" package="facade" visibility="public" xPosition="491.0" yPosition="429.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="read" returnType="byte[]" visibility="public">
+          <Argument type="long" name="position"/>
+          <Argument type="int" name="size"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Memory" package="facade" visibility="public" xPosition="791.0" yPosition="456.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="load" returnType="void" visibility="public">
+          <Argument type="long" name="position"/>
+          <Argument type="byte[]" name="data"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="hardDrive" source="facade.Computer" target="facade.HardDrive" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="memory" source="facade.Computer" target="facade.Memory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cpu" source="facade.Computer" target="facade.CPU" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

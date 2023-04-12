@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="proxy">
+  <ClassDiagramComponents>
+    <Class name="Client" package="proxy" visibility="public" xPosition="366.0" yPosition="227.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="InternetProxy" package="proxy" visibility="public" xPosition="615.0" yPosition="476.0">
+      <Fields>
+        <Field name="internet" type="Internet" visibility="private"/>
+        <Field name="blockedSites" type="Set&lt;String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="connectTo" returnType="void" visibility="public">
+          <Argument type="String" name="serverHost"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="RealInternet" package="proxy" visibility="public" xPosition="957.0" yPosition="504.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="connectTo" returnType="void" visibility="public">
+          <Argument type="String" name="serverHost"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="Internet" package="proxy" visibility="public" xPosition="698.0" yPosition="215.0">
+      <Methods>
+        <Method name="connectTo" returnType="void" visibility="package">
+          <Argument type="String" name="serverHost"/>
+        </Method>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="internet" source="proxy.InternetProxy" target="proxy.Internet" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="proxy.RealInternet" target="proxy.Internet"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="proxy.InternetProxy" target="proxy.Internet"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

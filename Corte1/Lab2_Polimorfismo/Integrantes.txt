@@ -1,0 +1,4 @@
+Integrantes:
+	Juan Camilo Sarabino
+Respositorio:
+	https://github.com/JSarabino/Lab-Ing-Software-2/tree/main/Corte1/Lab2_Polimorfismo/Agencia%20de%20viajes
