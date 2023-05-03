@@ -1,5 +1,6 @@
 package co.edu.unicauca.openmarket.access;
 
+import co.edu.unicauca.openmarket.domain.Category;
 import co.edu.unicauca.openmarket.domain.Product;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,19 +30,20 @@ public class ProductRepository implements IProductRepository {
     @Override
     public boolean save(Product newProduct) {
 
-        try {
+        try {  
             //Validate product
             if (newProduct == null || newProduct.getName().isBlank()) {
                 return false;
             }
             //this.connect();
 
-            String sql = "INSERT INTO products ( name, description ) "
-                    + "VALUES ( ?, ? )";
+            String sql = "INSERT INTO products ( name, category, description ) "
+                    + "VALUES ( ?, ?, ? )";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, newProduct.getName());
-            pstmt.setString(2, newProduct.getDescription());
+            pstmt.setString(2, newProduct.getCategory().getName());
+            pstmt.setString(3, newProduct.getDescription());
             pstmt.executeUpdate();
             //this.disconnect();
             return true;
@@ -63,9 +65,18 @@ public class ProductRepository implements IProductRepository {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Product newProduct = new Product();
+                
+                //Prueba de Categoria
+                long idPrueba = 0;
+                Category newCategory = new Category(idPrueba,"prueba");
+                newProduct.setCategory(newCategory);
+                
+                //Datos
                 newProduct.setProductId(rs.getLong("productId"));
                 newProduct.setName(rs.getString("name"));
+                newProduct.getCategory().setName(rs.getString("category"));
                 newProduct.setDescription(rs.getString("description"));
+                
 
                 products.add(newProduct);
             }
@@ -82,6 +93,7 @@ public class ProductRepository implements IProductRepository {
         String sql = "CREATE TABLE IF NOT EXISTS products (\n"
                 + "	productId integer PRIMARY KEY AUTOINCREMENT,\n"
                 + "	name text NOT NULL,\n"
+                + "	category text NOT NULL,\n"
                 + "	description text NULL\n"
                 + ");";
 
@@ -184,8 +196,15 @@ public class ProductRepository implements IProductRepository {
 
             if (res.next()) {
                 Product prod = new Product();
+                
+                //Prueba de Categoria
+                long idPrueba = 0;
+                Category newCategory = new Category(idPrueba,"prueba");
+                prod.setCategory(newCategory);
+                
                 prod.setProductId(res.getLong("productId"));
                 prod.setName(res.getString("name"));
+                prod.getCategory().setName(res.getString("category"));
                 prod.setDescription(res.getString("description"));
                 return prod;
             } else {
@@ -213,8 +232,15 @@ public class ProductRepository implements IProductRepository {
 
             if (res.next()) {
                 Product prod = new Product();
+                
+                //Prueba de Categoria
+                long idPrueba = 0;
+                Category newCategory = new Category(idPrueba,"prueba");
+                prod.setCategory(newCategory);
+                
                 prod.setProductId(res.getLong("productId"));
                 prod.setName(res.getString("name"));
+                prod.getCategory().setName(res.getString("category"));
                 prod.setDescription(res.getString("description"));
                 return prod;
             } else {

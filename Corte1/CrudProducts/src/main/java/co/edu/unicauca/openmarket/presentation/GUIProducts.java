@@ -46,6 +46,9 @@ public class GUIProducts extends javax.swing.JFrame {
         txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lsCategory = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
@@ -114,7 +117,7 @@ public class GUIProducts extends javax.swing.JFrame {
         getContentPane().add(pnlSouth, java.awt.BorderLayout.SOUTH);
 
         pnlCenter.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        pnlCenter.setLayout(new java.awt.GridLayout(3, 2));
+        pnlCenter.setLayout(new java.awt.GridLayout(4, 2));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("*Id:");
@@ -132,6 +135,20 @@ public class GUIProducts extends javax.swing.JFrame {
         pnlCenter.add(jLabel2);
         pnlCenter.add(txtName);
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Categoria:");
+        pnlCenter.add(jLabel4);
+
+        lsCategory.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Categoria 1", "Categoria 2", "Categoria 3" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        lsCategory.setSelectedIndex(0);
+        jScrollPane2.setViewportView(lsCategory);
+
+        pnlCenter.add(jScrollPane2);
+
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Descripción:");
         pnlCenter.add(jLabel3);
@@ -145,6 +162,7 @@ public class GUIProducts extends javax.swing.JFrame {
         getContentPane().add(pnlCenter, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -245,8 +263,8 @@ public class GUIProducts extends javax.swing.JFrame {
         btnFind.setVisible(true);
         txtId.setEnabled(false);
         txtName.setEnabled(false);
+        lsCategory.setEnabled(false);
         txtDescription.setEnabled(false);
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -260,7 +278,10 @@ public class GUIProducts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> lsCategory;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlSouth;
     private javax.swing.JTextArea txtDescription;
@@ -278,8 +299,8 @@ public class GUIProducts extends javax.swing.JFrame {
         btnFind.setVisible(false);
         txtId.setEnabled(false);
         txtName.setEnabled(true);
+        lsCategory.setEnabled(true);
         txtDescription.setEnabled(true);
-
     }
 
     private void cleanControls() {
@@ -291,8 +312,16 @@ public class GUIProducts extends javax.swing.JFrame {
     private void addProduct() {
         String name = txtName.getText().trim();
         String description = txtDescription.getText().trim();
+        
+        //Obtener datos de la categoria
+        long categoryId = lsCategory.getSelectedIndex();
+        String nameCategory = lsCategory.getSelectedValue();
+        
+        //System.out.println("ID: " + categoryId);
+        //System.out.println("Categoria: " + nameCategory);
+        
 
-        if (productService.saveProduct(name, description)) {
+        if (productService.saveProduct(name, categoryId, nameCategory, description)) {
             Messages.showMessageDialog("Se grabó con éxito", "Atención");
             cleanControls();
             stateInitial();

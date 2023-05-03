@@ -2,6 +2,7 @@ package co.edu.unicauca.openmarket.domain.service;
 
 
 import co.edu.unicauca.openmarket.access.IProductRepository;
+import co.edu.unicauca.openmarket.domain.Category;
 import co.edu.unicauca.openmarket.domain.Product;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +28,14 @@ public class ProductService {
     }
 
 
-    public boolean saveProduct(String name, String description) {
-        
+    public boolean saveProduct(String name, long categoryId, String nameCategory, String description) {
+        //Categoria
+        Category category = new Category(categoryId, nameCategory);
+          
         Product newProduct = new Product();
         newProduct.setName(name);
         newProduct.setDescription(description);
+        newProduct.setCategory(category);
         
         //Validate product
         if (newProduct.getName().isBlank() ) {

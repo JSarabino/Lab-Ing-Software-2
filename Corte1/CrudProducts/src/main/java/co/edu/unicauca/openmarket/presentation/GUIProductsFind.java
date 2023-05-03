@@ -33,7 +33,7 @@ public class GUIProductsFind extends javax.swing.JDialog {
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Id", "Name", "Description"
+                    "Id", "Name", "Category","Description"
                 }
         ));
     }
@@ -42,11 +42,12 @@ public class GUIProductsFind extends javax.swing.JDialog {
         initializeTable();
         DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
 
-        Object rowData[] = new Object[3];//No columnas
+        Object rowData[] = new Object[4];//No columnas
         for (int i = 0; i < listProducts.size(); i++) {
             rowData[0] = listProducts.get(i).getProductId();
             rowData[1] = listProducts.get(i).getName();
-            rowData[2] = listProducts.get(i).getDescription();
+            rowData[2] = listProducts.get(i).getCategory().getName();
+            rowData[3] = listProducts.get(i).getDescription();
             
             model.addRow(rowData);
         }
@@ -186,6 +187,7 @@ public class GUIProductsFind extends javax.swing.JDialog {
 
                     //Llenamos la tabla
                     fillTable(products);
+                    
 
                 }else{
                     Messages.showMessageDialog("El identificador del producto no existe", "Error");
