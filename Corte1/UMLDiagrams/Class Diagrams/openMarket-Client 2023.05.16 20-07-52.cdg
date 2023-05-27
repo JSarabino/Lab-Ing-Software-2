@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="openMarket-Client">
+  <ClassDiagramComponents>
+    <Class name="AddProductCommand" package="co.unicauca.openmaket.client.command" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="productService" type="ProductService" visibility="private" isFinal="true"/>
+        <Field name="product" type="Product" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ProductService" name="productService"/>
+          <Argument type="Product" name="product"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="execute" returnType="boolean" visibility="public"/>
+        <Method name="undo" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="Command" package="co.unicauca.openmaket.client.command" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Methods>
+        <Method name="execute" returnType="boolean" visibility="package"/>
+        <Method name="undo" returnType="void" visibility="package"/>
+      </Methods>
+    </Interface>
+    <Class name="Invoker" package="co.unicauca.openmaket.client.command" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="commandHistory" type="Stack&lt;Command&gt;" visibility="private" isFinal="true"/>
+        <Field name="undoneCommands" type="Stack&lt;Command&gt;" visibility="private" isFinal="true"/>
+        <Field name="observers" type="List&lt;Observer&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="executeCommand" returnType="boolean" visibility="public">
+          <Argument type="Command" name="command"/>
+        </Method>
+        <Method name="undoLastCommand" returnType="void" visibility="public"/>
+        <Method name="redoLastCommand" returnType="void" visibility="public"/>
+        <Method name="hasMoreUndoCommands" returnType="boolean" visibility="public"/>
+        <Method name="hasMoreRedoCommands" returnType="boolean" visibility="public"/>
+        <Method name="registerObserver" returnType="void" visibility="public">
+          <Argument type="Observer" name="observer"/>
+        </Method>
+        <Method name="removeObserver" returnType="void" visibility="public">
+          <Argument type="Observer" name="observer"/>
+        </Method>
+        <Method name="notifyObservers" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="RemoveProductCommand" package="co.unicauca.openmaket.client.command" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="productService" type="ProductService" visibility="private" isFinal="true"/>
+        <Field name="product" type="Product" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ProductService" name="productService"/>
+          <Argument type="Product" name="product"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="execute" returnType="boolean" visibility="public"/>
+        <Method name="undo" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="CategoryAccessImplSockets" package="co.unicauca.openmarket.client.access" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="mySocket" type="OpenMarketSocket" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="save" returnType="boolean" visibility="public">
+          <Argument type="Category" name="newCategory"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+          <Argument type="Category" name="category"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Category" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Category&gt;" visibility="public"/>
+        <Method name="findByName" returnType="List&lt;Category&gt;" visibility="public">
+          <Argument type="String" name="cname"/>
+        </Method>
+        <Method name="extractMessages" returnType="String" visibility="private">
+          <Argument type="String" name="jsonResponse"/>
+        </Method>
+        <Method name="jsonToErrors" returnType="JsonError[]" visibility="private">
+          <Argument type="String" name="jsonError"/>
+        </Method>
+        <Method name="doCreateCategoryRequestJson" returnType="String" visibility="private">
+          <Argument type="Category" name="category"/>
+        </Method>
+        <Method name="doEditCategoryRequestJson" returnType="String" visibility="private">
+          <Argument type="Long" name="id"/>
+          <Argument type="Category" name="category"/>
+        </Method>
+        <Method name="doDeleteCategoryRequestJson" returnType="String" visibility="private">
+          <Argument type="Long" name="categoryId"/>
+        </Method>
+        <Method name="doFindCategoyIdRequestJson" returnType="String" visibility="private">
+          <Argument type="Long" name="categoryId"/>
+        </Method>
+        <Method name="doFindAllCategoriesRequestJson" returnType="String" visibility="private">
+          <Argument type="String" name="jsonProductList"/>
+        </Method>
+        <Method name="doFindCategoriesByNameRequestJson" returnType="String" visibility="private">
+          <Argument type="String" name="cname"/>
+        </Method>
+        <Method name="jsonToCategory" returnType="Category" visibility="private">
+          <Argument type="String" name="jsonCategory"/>
+        </Method>
+        <Method name="jsonToCategoryList" returnType="List&lt;Category&gt;" visibility="private">
+          <Argument type="String" name="jsonProductList"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Factory" package="co.unicauca.openmarket.client.access" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="Factory" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="getInstance" returnType="Factory" visibility="public" isStatic="true"/>
+        <Method name="getProductAccess" returnType="IProductAccess" visibility="public"/>
+        <Method name="getCategoryAccess" returnType="ICategoryAccess" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="ICategoryAccess" package="co.unicauca.openmarket.client.access" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Methods>
+        <Method name="save" returnType="boolean" visibility="package">
+          <Argument type="Category" name="newCategory"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="package">
+          <Argument type="Long" name="id"/>
+          <Argument type="Category" name="category"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="package">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Category" visibility="package">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Category&gt;" visibility="package"/>
+        <Method name="findByName" returnType="List&lt;Category&gt;" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Interface name="IProductAccess" package="co.unicauca.openmarket.client.access" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Methods>
+        <Method name="save" returnType="boolean" visibility="package">
+          <Argument type="Product" name="newProduct"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="package">
+          <Argument type="Long" name="id"/>
+          <Argument type="Product" name="product"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="package">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Product" visibility="package">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findByName" returnType="List&lt;Product&gt;" visibility="package">
+          <Argument type="String" name="pname"/>
+        </Method>
+        <Method name="findByCategory" returnType="List&lt;Product&gt;" visibility="package">
+          <Argument type="String" name="categoryName"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Product&gt;" visibility="package"/>
+      </Methods>
+    </Interface>
+    <Class name="ProductAccessImplSockets" package="co.unicauca.openmarket.client.access" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Fields>
+        <Field name="mySocket" type="OpenMarketSocket" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="save" returnType="boolean" visibility="public">
+          <Argument type="Product" name="newProduct"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+          <Argument type="Product" name="product"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Long" name="productId"/>
+        </Method>
+        <Method name="findById" returnType="Product" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findByName" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="pname"/>
+        </Method>
+        <Method name="findByCategory" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="categoryName"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Product&gt;" visibility="public"/>
+        <Method name="extractMessages" returnType="String" visibility="private">
+          <Argument type="String" name="jsonResponse"/>
+        </Method>
+        <Method name="jsonToErrors" returnType="JsonError[]" visibility="private">
+          <Argument type="String" name="jsonError"/>
+        </Method>
+        <Method name="doCreateProductRequestJson" returnType="String" visibility="private">
+          <Argument type="Product" name="product"/>
+        </Method>
+        <Method name="doEditProductRequestJson" returnType="String" visibility="private">
+          <Argument type="Long" name="prodId"/>
+          <Argument type="Product" name="product"/>
+        </Method>
+        <Method name="doDeleteProductRequestJson" returnType="String" visibility="private">
+          <Argument type="Long" name="productId"/>
+        </Method>
+        <Method name="doFindProductRequestJson" returnType="String" visibility="private">
+          <Argument type="String" name="productId"/>
+        </Method>
+        <Method name="doFindProductByNameRequestJson" returnType="String" visibility="private">
+          <Argument type="String" name="pname"/>
+        </Method>
+        <Method name="doFindProductByCategoryRequestJson" returnType="String" visibility="private">
+          <Argument type="String" name="categoryName"/>
+        </Method>
+        <Method name="doFindAllProductsRequestJson" returnType="String" visibility="private"/>
+        <Method name="jsonToProduct" returnType="Product" visibility="private">
+          <Argument type="String" name="jsonProduct"/>
+        </Method>
+        <Method name="jsonToProductList" returnType="List&lt;Product&gt;" visibility="private">
+          <Argument type="String" name="jsonProductList"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="CategoryService" package="co.unicauca.openmarket.client.domain.service" visibility="public" xPosition="320.0" yPosition="420.0">
+      <Fields>
+        <Field name="observers" type="List&lt;Observer&gt;" visibility="private"/>
+        <Field name="repository" type="ICategoryAccess" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="ICategoryAccess" name="repository"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="saveCategory" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="editCategory" returnType="boolean" visibility="public">
+          <Argument type="Long" name="categoryId"/>
+          <Argument type="Category" name="cat"/>
+        </Method>
+        <Method name="deleteCategory" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findCategoryById" returnType="Category" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findAllCategories" returnType="List&lt;Category&gt;" visibility="public"/>
+        <Method name="findCategoriesByName" returnType="List&lt;Category&gt;" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="registerObserver" returnType="void" visibility="public">
+          <Argument type="Observer" name="catGui"/>
+        </Method>
+        <Method name="removeObserver" returnType="void" visibility="public">
+          <Argument type="Observer" name="observer"/>
+        </Method>
+        <Method name="notifyObservers" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ProductService" package="co.unicauca.openmarket.client.domain.service" visibility="public" xPosition="620.0" yPosition="420.0">
+      <Fields>
+        <Field name="observers" type="List&lt;Observer&gt;" visibility="private"/>
+        <Field name="repository" type="IProductAccess" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="IProductAccess" name="repository"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="saveProduct" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="description"/>
+          <Argument type="Double" name="price"/>
+          <Argument type="Long" name="categoryId"/>
+        </Method>
+        <Method name="findAllProducts" returnType="List&lt;Product&gt;" visibility="public"/>
+        <Method name="findProductById" returnType="Product" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findProductsByName" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="findProductsByCategory" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="categoryName"/>
+        </Method>
+        <Method name="deleteProduct" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="editProduct" returnType="boolean" visibility="public">
+          <Argument type="Long" name="productId"/>
+          <Argument type="Product" name="newProd"/>
+        </Method>
+        <Method name="registerObserver" returnType="void" visibility="public">
+          <Argument type="Observer" name="catGui"/>
+        </Method>
+        <Method name="removeObserver" returnType="void" visibility="public">
+          <Argument type="Observer" name="observer"/>
+        </Method>
+        <Method name="notifyObservers" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="User" package="co.unicauca.openmarket.client.domain" visibility="public" xPosition="920.0" yPosition="420.0">
+      <Fields>
+        <Field name="login" type="String" visibility="private"/>
+        <Field name="password" type="String" visibility="private"/>
+        <Field name="username" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="login"/>
+          <Argument type="String" name="password"/>
+          <Argument type="String" name="username"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getLogin" returnType="String" visibility="public"/>
+        <Method name="setLogin" returnType="void" visibility="public">
+          <Argument type="String" name="login"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="setPassword" returnType="void" visibility="public">
+          <Argument type="String" name="contrasenia"/>
+        </Method>
+        <Method name="getUsername" returnType="String" visibility="public"/>
+        <Method name="setUsername" returnType="void" visibility="public">
+          <Argument type="String" name="nombres"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Messages" package="co.unicauca.openmarket.client.infra" visibility="public" xPosition="1220.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="showMessageDialog" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="message"/>
+          <Argument type="String" name="title"/>
+        </Method>
+        <Method name="showConfirmDialog" returnType="int" visibility="public" isStatic="true">
+          <Argument type="String" name="message"/>
+          <Argument type="String" name="title"/>
+        </Method>
+        <Method name="warningMessage" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="mns"/>
+          <Argument type="String" name="title"/>
+        </Method>
+        <Method name="errorMessage" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="mns"/>
+          <Argument type="String" name="titulo"/>
+        </Method>
+        <Method name="successMessage" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="mns"/>
+          <Argument type="String" name="title"/>
+        </Method>
+        <Method name="confirmMessage" returnType="int" visibility="public" isStatic="true">
+          <Argument type="String" name="mns"/>
+          <Argument type="String" name="title"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="OpenMarketSocket" package="co.unicauca.openmarket.client.infra" visibility="public" xPosition="1520.0" yPosition="420.0">
+      <Fields>
+        <Field name="socket" type="java.net.Socket" visibility="private"/>
+        <Field name="input" type="Scanner" visibility="private"/>
+        <Field name="output" type="PrintStream" visibility="private"/>
+        <Field name="IP_SERVER" type="String" visibility="private" isFinal="true"/>
+        <Field name="PORT" type="int" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="sendRequest" returnType="String" visibility="public">
+          <Argument type="String" name="requestJson"/>
+        </Method>
+        <Method name="closeStream" returnType="void" visibility="public"/>
+        <Method name="disconnect" returnType="void" visibility="public"/>
+        <Method name="connect" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Main" package="co.unicauca.openmarket.client.main" visibility="public" xPosition="1820.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GUICategoriesFind" package="co.unicauca.openmarket.client.presentation" visibility="public" xPosition="2120.0" yPosition="420.0">
+      <Fields>
+        <Field name="categoryService" type="CategoryService" visibility="private"/>
+        <Field name="btnClose" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSearch" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSearchAll" type="javax.swing.JButton" visibility="private"/>
+        <Field name="buttonGroup1" type="javax.swing.ButtonGroup" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="pnlCenter" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="pnlNorth" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="rdoId" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rdoName" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="tblProducts" type="javax.swing.JTable" visibility="private"/>
+        <Field name="txtSearch" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="java.awt.Frame" name="parent"/>
+          <Argument type="boolean" name="modal"/>
+          <Argument type="CategoryService" name="categoryService"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initializeTable" returnType="void" visibility="private"/>
+        <Method name="fillTable" returnType="void" visibility="private">
+          <Argument type="List&lt;Category&gt;" name="listCategories"/>
+        </Method>
+        <Method name="fillTableId" returnType="void" visibility="private">
+          <Argument type="Category" name="category"/>
+        </Method>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="btnCloseActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSearchAllActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSearchActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtSearchActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rdoNameActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="update" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GUICategory" package="co.unicauca.openmarket.client.presentation" visibility="public" xPosition="20.0" yPosition="820.0">
+      <Fields>
+        <Field name="categoryService" type="CategoryService" visibility="private"/>
+        <Field name="addOption" type="boolean" visibility="private"/>
+        <Field name="btnBuscar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnCancelar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnCerrar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnEditar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnEliminar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnGrabar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnNuevo" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnTerminarEdi" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="pnlCenter" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="pnlSouth" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="txtId" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtNombre" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="CategoryService" name="categoryService"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="btnCancelarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnNuevoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnEditarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnGrabarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnEliminarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnBuscarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnCerrarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnTerminarEdiActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="stateEdit" returnType="void" visibility="private"/>
+        <Method name="stateInitial" returnType="void" visibility="private"/>
+        <Method name="stateNew" returnType="void" visibility="private"/>
+        <Method name="cleanControls" returnType="void" visibility="private"/>
+        <Method name="addCategory" returnType="void" visibility="private"/>
+        <Method name="editCategory" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="GUIProducts" package="co.unicauca.openmarket.client.presentation" visibility="public" xPosition="320.0" yPosition="820.0">
+      <Fields>
+        <Field name="productService" type="ProductService" visibility="private"/>
+        <Field name="categoryService" type="CategoryService" visibility="private"/>
+        <Field name="addOption" type="boolean" visibility="private"/>
+        <Field name="invoker" type="Invoker" visibility="private"/>
+        <Field name="btnBorrarProducto" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnCancelar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnCerrar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnDeshacer" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnEditar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnEliminar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnFind" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnNuevo" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnRehacer" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSave" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnTerminarEdicion" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel5" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel6" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel7" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="lblId" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="pnlCenter" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="pnlSouth" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="txtCategory" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtDescription" type="javax.swing.JTextArea" visibility="private"/>
+        <Field name="txtId" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtPrecio" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ProductService" name="productService"/>
+          <Argument type="CategoryService" name="categoryService"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="btnNuevoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnCancelarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnCerrarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSaveActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnEditarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnEliminarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnFindActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtCategoryActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnBorrarProductoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnTerminarEdicionActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtPrecioActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnDeshacerActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnRehacerActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="stateEdit" returnType="void" visibility="private"/>
+        <Method name="stateInitial" returnType="void" visibility="private"/>
+        <Method name="stateNew" returnType="void" visibility="private"/>
+        <Method name="cleanControls" returnType="void" visibility="private"/>
+        <Method name="addProduct" returnType="void" visibility="private"/>
+        <Method name="editProduct" returnType="void" visibility="private"/>
+        <Method name="stateDelete" returnType="void" visibility="private"/>
+        <Method name="update" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GUIProductsFind" package="co.unicauca.openmarket.client.presentation" visibility="public" xPosition="620.0" yPosition="820.0">
+      <Fields>
+        <Field name="productService" type="ProductService" visibility="private"/>
+        <Field name="categoryService" type="CategoryService" visibility="private"/>
+        <Field name="btnClose" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSearch" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSearchAll" type="javax.swing.JButton" visibility="private"/>
+        <Field name="buttonGroup1" type="javax.swing.ButtonGroup" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="pnlCenter" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="pnlNorth" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="rdoCategory" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rdoId" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rdoName" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="tblProducts" type="javax.swing.JTable" visibility="private"/>
+        <Field name="txtSearch" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="java.awt.Frame" name="parent"/>
+          <Argument type="boolean" name="modal"/>
+          <Argument type="ProductService" name="productService"/>
+          <Argument type="CategoryService" name="categoryService"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initializeTable" returnType="void" visibility="private"/>
+        <Method name="fillTable" returnType="void" visibility="private">
+          <Argument type="List&lt;Product&gt;" name="listProducts"/>
+        </Method>
+        <Method name="fillTableId" returnType="void" visibility="private">
+          <Argument type="Product" name="producto"/>
+        </Method>
+        <Method name="fillTableName" returnType="void" visibility="private">
+          <Argument type="List&lt;Product&gt;" name="listProducts"/>
+        </Method>
+        <Method name="fillTableCategory" returnType="void" visibility="private">
+          <Argument type="List&lt;Product&gt;" name="listProducts"/>
+        </Method>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="btnCloseActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSearchAllActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSearchActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtSearchActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rdoNameActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="update" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="productService" source="co.unicauca.openmarket.client.presentation.GUIProducts" target="co.unicauca.openmarket.client.domain.service.ProductService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="co.unicauca.openmaket.client.command.AddProductCommand" target="co.unicauca.openmaket.client.command.Command"/>
+    <HasRelation name="categoryService" source="co.unicauca.openmarket.client.presentation.GUICategory" target="co.unicauca.openmarket.client.domain.service.CategoryService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="productService" source="co.unicauca.openmarket.client.presentation.GUIProductsFind" target="co.unicauca.openmarket.client.domain.service.ProductService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="co.unicauca.openmarket.client.access.Factory" target="co.unicauca.openmarket.client.access.ICategoryAccess" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="invoker" source="co.unicauca.openmarket.client.presentation.GUIProducts" target="co.unicauca.openmaket.client.command.Invoker" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="categoryService" source="co.unicauca.openmarket.client.presentation.GUIProductsFind" target="co.unicauca.openmarket.client.domain.service.CategoryService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="categoryService" source="co.unicauca.openmarket.client.presentation.GUICategoriesFind" target="co.unicauca.openmarket.client.domain.service.CategoryService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mySocket" source="co.unicauca.openmarket.client.access.CategoryAccessImplSockets" target="co.unicauca.openmarket.client.infra.OpenMarketSocket" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="co.unicauca.openmarket.client.access.Factory" target="co.unicauca.openmarket.client.access.Factory" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="commandHistory" source="co.unicauca.openmaket.client.command.Invoker" target="co.unicauca.openmaket.client.command.Command" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="co.unicauca.openmarket.client.access.Factory" target="co.unicauca.openmarket.client.access.IProductAccess" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="repository" source="co.unicauca.openmarket.client.domain.service.CategoryService" target="co.unicauca.openmarket.client.access.ICategoryAccess" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="categoryService" source="co.unicauca.openmarket.client.presentation.GUIProducts" target="co.unicauca.openmarket.client.domain.service.CategoryService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mySocket" source="co.unicauca.openmarket.client.access.ProductAccessImplSockets" target="co.unicauca.openmarket.client.infra.OpenMarketSocket" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="productService" source="co.unicauca.openmaket.client.command.AddProductCommand" target="co.unicauca.openmarket.client.domain.service.ProductService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="co.unicauca.openmaket.client.command.Invoker" target="co.unicauca.openmaket.client.command.Command" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="co.unicauca.openmaket.client.command.RemoveProductCommand" target="co.unicauca.openmaket.client.command.Command"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="co.unicauca.openmarket.client.access.CategoryAccessImplSockets" target="co.unicauca.openmarket.client.access.ICategoryAccess"/>
+    <HasRelation name="repository" source="co.unicauca.openmarket.client.domain.service.ProductService" target="co.unicauca.openmarket.client.access.IProductAccess" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="co.unicauca.openmarket.client.access.Factory" target="co.unicauca.openmarket.client.access.Factory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="co.unicauca.openmarket.client.access.ProductAccessImplSockets" target="co.unicauca.openmarket.client.access.IProductAccess"/>
+    <HasRelation name="undoneCommands" source="co.unicauca.openmaket.client.command.Invoker" target="co.unicauca.openmaket.client.command.Command" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="productService" source="co.unicauca.openmaket.client.command.RemoveProductCommand" target="co.unicauca.openmarket.client.domain.service.ProductService" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="openMarket-Server">
+  <ClassDiagramComponents>
+    <Class name="CategoryRepositoryImplArrays" package="co.unicauca.openmarket.server.access" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="categories" type="List&lt;Category&gt;" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="inicializar" returnType="void" visibility="public"/>
+        <Method name="save" returnType="boolean" visibility="public">
+          <Argument type="Category" name="newCategory"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+          <Argument type="Category" name="prmCategory"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Category" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Category&gt;" visibility="public"/>
+        <Method name="findByName" returnType="List&lt;Category&gt;" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="CategoryRepositoryImplMysql" package="co.unicauca.openmarket.server.access" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="conn" type="Connection" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="save" returnType="boolean" visibility="public">
+          <Argument type="Category" name="newCategory"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+          <Argument type="Category" name="category"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Category" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Category&gt;" visibility="public"/>
+        <Method name="findByName" returnType="List&lt;Category&gt;" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Factory" package="co.unicauca.openmarket.server.access" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="Factory" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="getInstance" returnType="Factory" visibility="public" isStatic="true"/>
+        <Method name="getRepository" returnType="IProductRepository" visibility="public"/>
+        <Method name="getCatRepository" returnType="ICategoryRepository" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="ICategoryRepository" package="co.unicauca.openmarket.server.access" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Methods>
+        <Method name="save" returnType="boolean" visibility="package">
+          <Argument type="Category" name="newCategory"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="package">
+          <Argument type="Long" name="id"/>
+          <Argument type="Category" name="category"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="package">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Category" visibility="package">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Category&gt;" visibility="package"/>
+        <Method name="findByName" returnType="List&lt;Category&gt;" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Interface name="IProductRepository" package="co.unicauca.openmarket.server.access" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Methods>
+        <Method name="createProduct" returnType="String" visibility="package">
+          <Argument type="Product" name="newProduct"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="package">
+          <Argument type="Long" name="id"/>
+          <Argument type="Product" name="product"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="package">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Product" visibility="package">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findByName" returnType="List&lt;Product&gt;" visibility="package">
+          <Argument type="String" name="pname"/>
+        </Method>
+        <Method name="findByCategory" returnType="List&lt;Product&gt;" visibility="package">
+          <Argument type="String" name="categoryName"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Product&gt;" visibility="package"/>
+      </Methods>
+    </Interface>
+    <Class name="ProductRepositoryImplArrays" package="co.unicauca.openmarket.server.access" visibility="public" isFinal="true" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="products" type="List&lt;Product&gt;" visibility="private" isStatic="true"/>
+        <Field name="conn" type="Connection" visibility="private"/>
+        <Field name="categoryService" type="ICategoryRepository" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ICategoryRepository" name="catRepo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="inicializar" returnType="void" visibility="public"/>
+        <Method name="createProduct" returnType="String" visibility="public">
+          <Argument type="Product" name="newProduct"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+          <Argument type="Product" name="product"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Product" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findByName" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="pname"/>
+        </Method>
+        <Method name="findByCategory" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="categoryName"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Product&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ProductRepositoryImplMysql" package="co.unicauca.openmarket.server.access" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Fields>
+        <Field name="conn" type="Connection" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="findAll" returnType="List&lt;Product&gt;" visibility="public"/>
+        <Method name="connect" returnType="int" visibility="public"/>
+        <Method name="disconnect" returnType="void" visibility="public"/>
+        <Method name="createProduct" returnType="String" visibility="public">
+          <Argument type="Product" name="newProduct"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Product" visibility="public">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findByName" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="pname"/>
+        </Method>
+        <Method name="findByCategory" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="categoryName"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="public">
+          <Argument type="Long" name="id"/>
+          <Argument type="Product" name="product"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="CategoryService" package="co.unicauca.openmarket.server.domain.services" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Fields>
+        <Field name="repo" type="ICategoryRepository" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ICategoryRepository" name="repo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="save" returnType="boolean" visibility="public" isSynchronized="true">
+          <Argument type="Category" name="newCategory"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="public" isSynchronized="true">
+          <Argument type="Long" name="id"/>
+          <Argument type="Category" name="category"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public" isSynchronized="true">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Category" visibility="public" isSynchronized="true">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Category&gt;" visibility="public" isSynchronized="true"/>
+        <Method name="findByName" returnType="List&lt;Category&gt;" visibility="public" isSynchronized="true">
+          <Argument type="String" name="name"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ProductService" package="co.unicauca.openmarket.server.domain.services" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Fields>
+        <Field name="repo" type="IProductRepository" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="IProductRepository" name="repo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="createProduct" returnType="String" visibility="public" isSynchronized="true">
+          <Argument type="Product" name="product"/>
+        </Method>
+        <Method name="edit" returnType="boolean" visibility="public" isSynchronized="true">
+          <Argument type="Long" name="id"/>
+          <Argument type="Product" name="newProduct"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public" isSynchronized="true">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findById" returnType="Product" visibility="public" isSynchronized="true">
+          <Argument type="Long" name="id"/>
+        </Method>
+        <Method name="findAll" returnType="List&lt;Product&gt;" visibility="public" isSynchronized="true"/>
+        <Method name="findByCategory" returnType="List&lt;Product&gt;" visibility="public">
+          <Argument type="String" name="categoryName"/>
+        </Method>
+        <Method name="findByName" returnType="List&lt;Product&gt;" visibility="public" isSynchronized="true">
+          <Argument type="String" name="name"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Enum name="Context" package="co.unicauca.openmarket.server.infra" visibility="public" xPosition="320.0" yPosition="420.0">
+      <Literals>
+        <Literal name="PRODUCT"/>
+        <Literal name="CATEGORY"/>
+      </Literals>
+    </Enum>
+    <Class name="ErrorResponse" package="co.unicauca.openmarket.server.infra" visibility="public" xPosition="620.0" yPosition="420.0">
+      <Fields>
+        <Field name="errors" type="List&lt;JsonError&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="code"/>
+          <Argument type="String" name="error"/>
+          <Argument type="String" name="message"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="toJson" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="OpenMarketServer" package="co.unicauca.openmarket.server.infra.tcpip" visibility="public" xPosition="920.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="co.unicauca.openmarket.server.access.CategoryRepositoryImplArrays" target="co.unicauca.openmarket.server.access.ICategoryRepository"/>
+    <UseRelation source="co.unicauca.openmarket.server.access.Factory" target="co.unicauca.openmarket.server.access.IProductRepository" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="co.unicauca.openmarket.server.access.ProductRepositoryImplArrays" target="co.unicauca.openmarket.server.access.IProductRepository"/>
+    <HasRelation name="repo" source="co.unicauca.openmarket.server.domain.services.CategoryService" target="co.unicauca.openmarket.server.access.ICategoryRepository" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="co.unicauca.openmarket.server.access.CategoryRepositoryImplMysql" target="co.unicauca.openmarket.server.access.ICategoryRepository"/>
+    <UseRelation source="co.unicauca.openmarket.server.access.Factory" target="co.unicauca.openmarket.server.access.ICategoryRepository" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="categoryService" source="co.unicauca.openmarket.server.access.ProductRepositoryImplArrays" target="co.unicauca.openmarket.server.access.ICategoryRepository" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="co.unicauca.openmarket.server.access.Factory" target="co.unicauca.openmarket.server.access.Factory" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="co.unicauca.openmarket.server.access.Factory" target="co.unicauca.openmarket.server.access.Factory" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="repo" source="co.unicauca.openmarket.server.domain.services.ProductService" target="co.unicauca.openmarket.server.access.IProductRepository" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="co.unicauca.openmarket.server.access.ProductRepositoryImplMysql" target="co.unicauca.openmarket.server.access.IProductRepository"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
